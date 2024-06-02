@@ -14,8 +14,12 @@ def handle_request(client_socket, request):
         # Send HTTP response with file content
         response = b"HTTP/1.1 200 OK\r\n\r\n" + response_data
     else:
+        # read the file
+        with open('notFound.html', 'rb') as file:
+            response_data = file.read()
+        # Send HTTP response with file content
         # File not found response
-        response = b"HTTP/1.1 404 Not Found\r\n\r\nFile not found"
+        response = b"HTTP/1.1 404 Not Found\r\n\r\nFile not found" + response_data
 
     # Send the response
     client_socket.sendall(response)

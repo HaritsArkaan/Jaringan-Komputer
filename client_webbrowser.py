@@ -41,7 +41,15 @@ def main():
             # Open the URL in the default web browser
             webbrowser.open(url)
         else:
-            print(response.decode('utf-8'))
+            print("HTTP/1.1 404 Not Found")
+            with open("temp.html", "wb") as temp_file:
+                temp_file.write(response)
+            # Construct the URL
+            url = f"file://{os.path.abspath('temp.html')}"
+
+            # Open the URL in the default web browser
+            webbrowser.open(url)
+            # print(response.decode('utf-8'))
     except Exception as e:
         print(f"Error: {e}")
     finally:
